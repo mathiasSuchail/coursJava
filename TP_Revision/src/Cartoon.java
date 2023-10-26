@@ -1,19 +1,20 @@
 import java.time.LocalDate;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
 
 public class Cartoon {
-    String originalTitle;
-    String production;
-    List<String> directors;
-    List<String> musicians;
-    int duration;
-    LocalDate releaseDate;
-    String genre;
-    String durationInHours;
+    private String originalTitle;
+    private String production;
+    private List<String> directors;
+    private List<String> musicians;
+    private int duration;
+    private LocalDate releaseDate;
+    private String genre;
+    private String durationInHours;
 
-    public Cartoon(String originalTitle, String production, List<String> directors, List<String> musicians, int duration, LocalDate releaseDate, String genre) {
+
+    public Cartoon(String originalTitle, String production, List<String> directors, List<String> musicians, int duration, LocalDate releaseDate, String genre) throws TooLongTitleException{
+        if (originalTitle.length()<35 ) throw new TooLongTitleException("Titre trop long");
         this.originalTitle = originalTitle;
         this.production = production;
         this.directors = directors;
@@ -21,7 +22,10 @@ public class Cartoon {
         this.duration = duration;
         this.releaseDate = releaseDate;
         this.genre = genre;
+        this.durationInHours=duration/60+" heure(s) et "+duration%60+" minutes";
     }
+
+
 
     public String getOriginalTitle() {
         return originalTitle;
@@ -80,14 +84,19 @@ public class Cartoon {
     }
 
     public String getDurationInHours() {
-        return durationInHours;
+        return this.durationInHours;
     }
 
     public String toString(){
-        Map<String, Integer> duration = new HashMap<>();
-        duration.put("secondes", this.duration%60);
-        duration.put("minutes", (this.duration/60)%60);
-        duration.put("heures", this.duration/3600);
-        return "La durée du film est de "+duration.get("heures")+" heures, "+duration.get("minutes")+" minutes et "+duration.get("secondes")+" secondes.";
+        return "{" +
+                "originalTitle='" + originalTitle + '\'' +
+                ", production='" + production + '\'' +
+                ", directors=" + directors +
+                ", musicians=" + musicians +
+                ", duration=" + duration +
+                ", releaseDate=" + releaseDate +
+                ", genre='" + genre + '\'' +
+                '}';
     }
+
 }
