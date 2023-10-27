@@ -43,4 +43,44 @@ public class CartoonManagerImpl implements CartoonManager{
         }
         return titleOfLongestCartoon;
     }
+
+    @Override
+    public List<String> getAllDirectorsOfAllMovies(Collection<Cartoon> cartoonMap) {
+        List<String> allDirectorsOfAllMovies = new ArrayList<>();
+        for(Cartoon cartoon: cartoonMap){
+            for (String director: cartoon.getDirectors()){
+                if (!allDirectorsOfAllMovies.contains(director)) allDirectorsOfAllMovies.add(director);
+            }
+        }
+        return allDirectorsOfAllMovies;
+    }
+
+    @Override
+    public List<String> getAllMusiciansOfAllMovies(Collection<Cartoon> cartoonMap){
+        List<String> allMusiciansOfAllMovies = new ArrayList<>();
+        for(Cartoon cartoon: cartoonMap){
+            for (String musician: cartoon.getMusicians()){
+                if(!allMusiciansOfAllMovies.contains(musician)){
+                    allMusiciansOfAllMovies.add(musician);
+                }
+            }
+        }
+        return allMusiciansOfAllMovies;
+    }
+
+    @Override
+    public List<String> getCartoonTitlesWithEvenDuration(Collection<Cartoon> cartoonMap) {
+        return cartoonMap.stream()
+                .filter(cartoon -> cartoon.getDuration()%2==0)
+                .map(Cartoon::getOriginalTitle)
+                .toList();
+    }
+
+    @Override
+    public List<String> getCartoonTitlesReleasedAfterCertainYear(Collection<Cartoon> cartoonMap, int theCertainYear) {
+        return cartoonMap.stream()
+                .filter(cartoon -> cartoon.getReleaseDate().getYear()>theCertainYear)
+                .map(Cartoon::getOriginalTitle)
+                .toList();
+    }
 }

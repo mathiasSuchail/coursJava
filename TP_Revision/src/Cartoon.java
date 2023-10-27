@@ -14,7 +14,7 @@ public class Cartoon {
 
 
     public Cartoon(String originalTitle, String production, List<String> directors, List<String> musicians, int duration, LocalDate releaseDate, String genre) throws TooLongTitleException{
-        if (originalTitle.length()<35 ) throw new TooLongTitleException("Titre trop long");
+        if (originalTitle.length()>35 ) throw new TooLongTitleException("Titre trop long");
         this.originalTitle = originalTitle;
         this.production = production;
         this.directors = directors;

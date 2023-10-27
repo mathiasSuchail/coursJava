@@ -2,6 +2,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class Main {
@@ -47,7 +48,7 @@ public class Main {
                             "Fox Film Corporation, Walt Disney Animation Studios ",
                             new ArrayList<String>(Arrays.asList("Frank Lloyd", "Walt Disney")),
                             new ArrayList<String>(Arrays.asList("Arthur Lange")),
-                            88,
+                            87,
                             LocalDate.of(1934, 9, 26),
                             "Animation 2D / Film Live"
                     )
@@ -72,6 +73,16 @@ public class Main {
         System.out.println("Cartoon le plus recent : "+cartoonManager.getTitleOfMostRecentCartoon(cartoonMap.values()));
         System.out.println("Cartoon avec le musicien "+musician+" : "+cartoonManager.getTitlesOfCartoonFromMusician(musician, cartoonMap.values()));
 
+        System.out.println("----- Test Lambda -----");
+        StringBuilder directors = new StringBuilder();
+        StringBuilder musicians = new StringBuilder();
+        cartoonManager.getAllDirectorsOfAllMovies(cartoonMap.values()).forEach(string -> directors.append(string+"   "));
+        cartoonManager.getAllMusiciansOfAllMovies(cartoonMap.values()).forEach(string -> musicians.append(string+"   "));
+        System.out.println(directors);
+        System.out.println(musicians);
 
+        System.out.println("----- Test stream -----");
+        System.out.println(cartoonManager.getCartoonTitlesWithEvenDuration(cartoonMap.values()));
+        System.out.println(cartoonManager.getCartoonTitlesReleasedAfterCertainYear(cartoonMap.values(), 1931));
     }
 }
